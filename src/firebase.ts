@@ -2,13 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBopQQGQ8jZJeo5G4FBziuhGSYvlwoRh44',
-  authDomain: 'spoton-2025.firebaseapp.com',
-  projectId: 'spoton-2025',
-  storageBucket: 'spoton-2025.firebasestorage.app',
-  messagingSenderId: '743163701933',
-  appId: '1:743163701933:web:15287f1de71f689fe0b424',
-  measurementId: 'G-WNTHGR15RE',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
