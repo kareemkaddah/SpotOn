@@ -1,50 +1,52 @@
 import { useEffect, useState } from 'react';
 import {
   collection,
-  query,
+  getDocs,
   orderBy,
-  onSnapshot,
+  query,
   Timestamp,
 } from 'firebase/firestore';
 import { db } from '../firebase';
-
-// ✅ TypeScript type to define the structure of a Post
 type Post = {
   id: string;
   description: string;
   location: string;
-  timestamp: Timestamp; // or `any` if you're unsure for now
+  timestamp: Timestamp;
 };
-
 function RecentPosts() {
   const [posts, setPosts] = useState<Post[]>([]);
-
   useEffect(() => {
-    const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const tempPosts: Post[] = [];
-      querySnapshot.forEach((doc) => {
-        tempPosts.push({ id: doc.id, ...doc.data() } as Post);
-      });
-      setPosts(tempPosts);
-    });
-
-    return () => unsubscribe();
+    const fetchPosts = async () => {
+      const postsRef = collection(db, 'posts');
+      const q = query(postsRef, orderBy('timestamp', 'desc'));
+      const snapshot = await getDocs(q);
+      const postsData = snapchot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Post[];
+      setPosts(postsData);
+    };
+    fetchPosts();
   }, []);
-
   return (
-    <section style={{ marginTop: '40px' }}>
-      <div id='main-text'>Recent Spots</div>
-      {posts.map((post) => (
-        <div key={post.id} className='post-card'>
-          <p>
-            <strong>Location:</strong> {post.location}
-          </p>
-          <p>{post.description}</p>
-        </div>
-      ))}
-    </section>
+    <div>
+      <h2>Recent Sightings</h2>
+      {posts.length === 0 ? (
+        <p>No posts yet...</p>
+      ) : (
+        <ul>
+          {posts.map((post) => (
+            <li key={post.id} style={{ marginBottom: '1rem' }}>
+              <strong>Description:</strong> {post.description} <br />
+              <strong>Location:</strong> {post.location} <br />
+              <small>
+                {new Date(post.timestamp.seconds * 1000).toLocaleString()}
+              </small>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

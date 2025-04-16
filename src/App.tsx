@@ -10,12 +10,13 @@ function App() {
   const handlePost = async () => {
     if (!description || !location) {
       alert('Please fill in both fields');
+      return;
     }
     try {
       await addDoc(collection(db, 'posts'), {
         description,
         location,
-        tiemstamp: Timestamp.now(),
+        timestamp: Timestamp.now(),
       });
       setDescription('');
       setLocation('');
@@ -32,6 +33,7 @@ function App() {
         <textarea
           className='inputBox'
           name='Description'
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
       </div>
@@ -41,6 +43,7 @@ function App() {
           className='locationBox'
           name='location'
           type='text'
+          value={location}
           onChange={(e) => setLocation(e.target.value)}
         ></input>
       </div>
