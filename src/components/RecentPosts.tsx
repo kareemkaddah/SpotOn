@@ -1,53 +1,58 @@
-import { useEffect, useState } from 'react';
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  Timestamp,
-} from 'firebase/firestore';
+import './RecentPosts.css';
+import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+
 type Post = {
   id: string;
   description: string;
   location: string;
-  timestamp: Timestamp;
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
 };
-function RecentPosts() {
+
+const RecentPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsRef = collection(db, 'posts');
-      const q = query(postsRef, orderBy('timestamp', 'desc'));
+      const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
       const snapshot = await getDocs(q);
-      const postsData = snapchot.docs.map((doc) => ({
+      const fetchedPosts: Post[] = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data(),
-      })) as Post[];
-      setPosts(postsData);
+        ...(doc.data() as Omit<Post, 'id'>),
+      }));
+      setPosts(fetchedPosts);
     };
+
     fetchPosts();
   }, []);
+
   return (
-    <div>
-      <h2>Recent Sightings</h2>
-      {posts.length === 0 ? (
-        <p>No posts yet...</p>
-      ) : (
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id} style={{ marginBottom: '1rem' }}>
-              <strong>Description:</strong> {post.description} <br />
-              <strong>Location:</strong> {post.location} <br />
-              <small>
-                {new Date(post.timestamp.seconds * 1000).toLocaleString()}
-              </small>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <>
+      <div className='posts-text'>updated View</div>
+      <div className='posts-container'>
+        {posts.map((post) => (
+          <div className='post-box' key={post.id}>
+            <p>
+              <strong>Descripiton </strong>
+              {post.description}
+            </p>
+            <p>
+              <strong>Location </strong> {post.location}{' '}
+            </p>
+            <p>
+              <strong>Time </strong>{' '}
+              {new Date(post.timestamp.seconds * 1000).toLocaleString()}{' '}
+            </p>
+          </div>
+        ))}
+      </div>
+      <div></div>
+    </>
   );
-}
+};
 
 export default RecentPosts;
