@@ -32,21 +32,28 @@ const RecentPosts: React.FC = () => {
 
   return (
     <>
-      <div className='posts-text'>updated View</div>
       <div className='posts-container'>
         {posts.map((post) => (
           <div className='post-box' key={post.id}>
-            <p>
-              <strong>Descripiton </strong>
-              {post.description}
-            </p>
-            <p>
-              <strong>Location </strong> {post.location}{' '}
-            </p>
-            <p>
-              <strong>Time </strong>{' '}
-              {new Date(post.timestamp.seconds * 1000).toLocaleString()}{' '}
-            </p>
+            <div className='location-text'>
+              <p> {post.location}</p>{' '}
+            </div>
+
+            <div className='time-box'>
+              <p>
+                {new Date(post.timestamp.seconds * 1000)
+                  .toLocaleString('en-GB', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                  })
+                  .replace(',', '')}
+              </p>
+            </div>
+            <p className='description-text'>{post.description} </p>
           </div>
         ))}
       </div>

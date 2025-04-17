@@ -27,9 +27,15 @@ function App() {
   };
   return (
     <>
-      <div id='main-text'>Welcome to spot on!</div>
+      <div id='main-text'>
+        <p style={{ fontSize: '42px', marginLeft: '-10px' }}>Spotted</p>
+      </div>
+      <RecentPosts />
       <div className='description-text'>
-        Describe the Person you are looking for:
+        <p style={{ marginLeft: '55px' }}>
+          {' '}
+          Describe the Person you are looking for:
+        </p>
         <textarea
           className='inputBox'
           name='Description'
@@ -66,9 +72,7 @@ function App() {
         <input className='searchSpots-box'></input>
       </section>
 
-      <section style={{ marginTop: '40px' }}>
-        <RecentPosts />
-      </section>
+      <section style={{ marginTop: '40px' }}></section>
     </>
   );
 }
