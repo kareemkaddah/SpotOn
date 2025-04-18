@@ -42,7 +42,7 @@ function App() {
         </p>
         <div>
           <div>
-            <label htmlFor='gender'>Select Gender:</label>
+            <label htmlFor='gender'>Select your Gender:</label>
             <select
               id='gender'
               value={gender}
