@@ -5,6 +5,7 @@ import { db } from './firebase';
 import RecentPosts from './components/RecentPosts';
 
 function App() {
+  const [gender, setGender] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const handlePost = async () => {
@@ -16,9 +17,12 @@ function App() {
       await addDoc(collection(db, 'posts'), {
         description,
         location,
+        gender,
         timestamp: Timestamp.now(),
       });
+
       setDescription('');
+      setGender('');
       setLocation('');
       alert('post added anonymosulsy!');
     } catch (error) {
@@ -36,6 +40,19 @@ function App() {
           {' '}
           Describe the Person you are looking for:
         </p>
+        <div>
+          <div>
+            <label htmlFor='gender'>Select Gender:</label>
+            <select
+              id='gender'
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <option value='male'>Male</option>
+              <option value='female'>Female</option>
+            </select>
+          </div>
+        </div>
         <textarea
           className='inputBox'
           name='Description'
@@ -62,6 +79,7 @@ function App() {
           onClick={() => {
             setDescription('');
             setLocation('');
+            setGender('');
           }}
         >
           Delete
