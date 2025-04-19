@@ -8,6 +8,7 @@ function App() {
   const [gender, setGender] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
+  // const [darkmode, setDarkmode] = useState(false);
   const handlePost = async () => {
     if (!description || !location) {
       alert('Please fill in both fields');
@@ -41,17 +42,18 @@ function App() {
           Describe the Person you are looking for:
         </p>
         <div>
-          <div>
-            <label htmlFor='gender'>Select your Gender:</label>
-            <select
-              id='gender'
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            >
-              <option value='male'>Male</option>
-              <option value='female'>Female</option>
-            </select>
-          </div>
+          <select
+            id='gender'
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
+            <option value='' disabled>
+              Select Gender
+            </option>
+            <option value='male'>Male</option>
+            <option value='female'>Female</option>
+            <option value='other'>Other</option>
+          </select>
         </div>
         <textarea
           className='inputBox'
