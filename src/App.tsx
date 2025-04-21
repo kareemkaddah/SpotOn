@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 import RecentPosts from './components/RecentPosts';
@@ -30,10 +30,25 @@ function App() {
       console.error('Error posting:', error);
     }
   };
+
+  useEffect(() => {
+    const toggleBtn = document.getElementById('toggle-theme');
+    const toggleTheme = () => {
+      document.body.classList.toggle('dark-mode');
+    };
+
+    toggleBtn?.addEventListener('click', toggleTheme);
+
+    // Clean up event listener when component unmounts
+    return () => {
+      toggleBtn?.removeEventListener('click', toggleTheme);
+    };
+  }, []);
   return (
     <>
       <div id='main-text'>
         <p style={{ fontSize: '42px', marginLeft: '-10px' }}>Spotted</p>
+        <button id='toggle-theme'>Toggle dark Mode</button>
       </div>
       <RecentPosts />
       <div className='description-text'>

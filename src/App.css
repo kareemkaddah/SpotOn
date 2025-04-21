@@ -4,12 +4,23 @@
   padding: 2rem;
   text-align: center;
 }
-
+body {
+  background-color: white;
+}
+body.dark-mode {
+  background-color: rgb(57, 55, 55);
+  color: red;
+}
 #main-text {
   text-align: center;
   font-weight: bold;
 
   color: black;
+}
+#main-text.dark-mode {
+  text-align: center;
+  font-weight: bold;
+  color: white;
 }
 .inputBox {
   border-radius: 7px;
