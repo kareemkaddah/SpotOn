@@ -6,21 +6,63 @@
 }
 body {
   background-color: white;
+  color: black;
 }
 body.dark-mode {
-  background-color: rgb(57, 55, 55);
-  color: red;
+  background: linear-gradient(to top, #230025, #500184);
+}
+body.dark-mode #main-text {
+  color: white;
+}
+body.dark-mode .description-text {
+  color: white;
+}
+body.dark-mode .inputBox,
+body.dark-mode .locationBox,
+body.dark-mode .searchSpots-box,
+body.dark-mode select {
+  background-color: white;
+  color: white;
+  border: 1px solid #777;
 }
 #main-text {
+  display: flex;
+  margin-left: 180px;
+  align-items: center; /* Aligns text and button vertically */
+  justify-content: flex-start; /* Positions everything to the left */
+  font-weight: bold;
+  color: black;
+  text-align: left; /* Aligns text to the left */
   text-align: center;
   font-weight: bold;
 
   color: black;
 }
-#main-text.dark-mode {
-  text-align: center;
-  font-weight: bold;
-  color: white;
+.darkMode {
+  /* border: none;
+  width: 50px;
+  height: 50px;
+
+  flex-direction: column;
+  margin-left: 290px;
+  background: transparent;
+  border-color: red;
+  cursor: pointer;
+  padding: 0;
+
+  outline: none; */
+  border: none;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  margin-left: 70px;
+}
+
+body.dark-mode .inputBox {
+  background-color: white;
 }
 .inputBox {
   border-radius: 7px;
@@ -81,6 +123,14 @@ body.dark-mode {
   padding-bottom: 5px;
   padding-top: 5px;
   padding-left: 10px;
+}
+.gender-box {
+  margin-left: 50px;
+  margin-bottom: 20px;
+  border-radius: 7px;
+}
+body.dark-mode .gender-box {
+  color: black;
 }
 
 @media (prefers-reduced-motion: no-preference) {

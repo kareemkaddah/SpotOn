@@ -3,7 +3,11 @@
   margin-bottom: 20px;
   text-align: center;
 }
-
+body.dark-mode .post-box {
+  background-color: #24013c;
+  color: white;
+  border: none;
+}
 .posts-container {
   display: flex;
   flex-direction: column;
@@ -12,7 +16,10 @@
   max-width: 400px;
   margin: auto;
 }
-
+body.dark-mode .time-box {
+  background-color: white;
+  color: black;
+}
 .post-box {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
@@ -21,6 +28,11 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: 0.2s ease;
 }
+body.dark-mode .gender {
+  background-color: white;
+  color: black;
+}
+
 .gender {
   background-color: black;
   color: white;

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 import RecentPosts from './components/RecentPosts';
+import darkMode from './assets/darkMode.svg';
 
 function App() {
   const [gender, setGender] = useState('');
@@ -48,7 +49,17 @@ function App() {
     <>
       <div id='main-text'>
         <p style={{ fontSize: '42px', marginLeft: '-10px' }}>Spotted</p>
-        <button id='toggle-theme'>Toggle dark Mode</button>
+        <button
+          className='darkMode'
+          id='toggle-theme'
+          style={{ border: 'none' }}
+        >
+          <img
+            src={darkMode}
+            alt='Dark Mode'
+            style={{ width: '40px', height: '40px' }}
+          ></img>
+        </button>
       </div>
       <RecentPosts />
       <div className='description-text'>
@@ -58,6 +69,7 @@ function App() {
         </p>
         <div>
           <select
+            className='gender-box'
             id='gender'
             value={gender}
             onChange={(e) => setGender(e.target.value)}
