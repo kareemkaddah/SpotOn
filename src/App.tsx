@@ -8,6 +8,7 @@ import darkMode from './assets/darkMode.svg';
 function App() {
   const [gender, setGender] = useState('');
   const [description, setDescription] = useState('');
+  const [activity, setActivity] = useState('');
   const [location, setLocation] = useState('');
   // const [darkmode, setDarkmode] = useState(false);
   const handlePost = async () => {
@@ -20,9 +21,10 @@ function App() {
         description,
         location,
         gender,
+        activity,
         timestamp: Timestamp.now(),
       });
-
+      setActivity('');
       setDescription('');
       setGender('');
       setLocation('');
@@ -75,11 +77,27 @@ function App() {
             onChange={(e) => setGender(e.target.value)}
           >
             <option value='' disabled>
-              Select Gender
+              Spotted Gender
             </option>
-            <option value='male'>Male</option>
-            <option value='female'>Female</option>
-            <option value='other'>Other</option>
+            <option value='Male'>Male</option>
+            <option value='Female'>Female</option>
+            <option value='Other'>Other</option>
+          </select>
+        </div>
+        <div>
+          <select
+            className='gender-box'
+            id='activity'
+            value={activity}
+            onChange={(e) => setActivity(e.target.value)}
+          >
+            <option value='' disabled>
+              Activity
+            </option>
+            <option value='Car'>Car</option>
+            <option value='Train'>Train</option>
+            <option value='Walking'>Walking</option>
+            <option value='Other'>Other</option>
           </select>
         </div>
         <textarea
@@ -99,6 +117,7 @@ function App() {
           onChange={(e) => setLocation(e.target.value)}
         ></input>
       </div>
+
       <div style={{ display: 'flex' }}>
         <button className='post-botton' onClick={handlePost}>
           Post Anonymosly
@@ -109,6 +128,7 @@ function App() {
             setDescription('');
             setLocation('');
             setGender('');
+            setActivity('');
           }}
         >
           Delete

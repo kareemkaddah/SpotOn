@@ -5,6 +5,7 @@ import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 
 type Post = {
   id: string;
+  activity: string;
   gender: string;
   description: string;
   location: string;
@@ -56,6 +57,9 @@ const RecentPosts: React.FC = () => {
             </div>
             <div className='gender'>
               <p>{post.gender}</p>
+            </div>
+            <div className='gender'>
+              <p>{post.activity}</p>
             </div>
             <p className='description-text'>{post.description} </p>
           </div>
