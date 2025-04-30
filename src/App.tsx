@@ -3,14 +3,39 @@ import { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 import RecentPosts from './components/RecentPosts';
+import { Country, State, City } from 'country-state-city';
 import darkMode from './assets/darkMode.svg';
 
 function App() {
+  const countries = Country.getAllCountries();
+  const states = State.getStatesOfCountry('DE');
+  const cities = City.getCitiesOfState('DE', 'NW');
+  const [location, setLocation] = useState('');
+  const [filteredCities, setFilteredCities] = useState<string[]>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [gender, setGender] = useState('');
   const [description, setDescription] = useState('');
   const [activity, setActivity] = useState('');
-  const [location, setLocation] = useState('');
+
   // const [darkmode, setDarkmode] = useState(false);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setLocation(input);
+    if (input.length > 0) {
+      const suggestions = cities
+        .map((city) => city.name)
+        .filter((name) => name.toLowerCase().startsWith(input.toLowerCase()))
+        .slice(0, 10);
+      setFilteredCities(suggestions);
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+  };
+  const handleSelectCity = (city: string) => {
+    setLocation(city);
+    setShowDropdown(false);
+  };
   const handlePost = async () => {
     if (!description || !location) {
       alert('Please fill in both fields');
@@ -114,8 +139,36 @@ function App() {
           name='location'
           type='text'
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={handleInputChange}
         ></input>
+        {showDropdown && (
+          <ul
+            className='dropdown'
+            style={{
+              listStyle: 'none',
+              margin: 0,
+              padding: '8px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              background: 'white',
+              position: 'absolute',
+              top: '45px', // adjust based on your input height
+              left: 0,
+              width: '100%',
+              zIndex: 1000,
+            }}
+          >
+            {filteredCities.map((city, idx) => (
+              <li
+                key={idx}
+                onClick={() => handleSelectCity(city)}
+                style={{ padding: '5px', cursor: 'pointer' }}
+              >
+                {city}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div style={{ display: 'flex' }}>
