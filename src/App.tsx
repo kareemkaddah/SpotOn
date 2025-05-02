@@ -7,8 +7,6 @@ import { Country, State, City } from 'country-state-city';
 import darkMode from './assets/darkMode.svg';
 
 function App() {
-  const countries = Country.getAllCountries();
-  const states = State.getStatesOfCountry('DE');
   const cities = City.getCitiesOfState('DE', 'NW');
   const [location, setLocation] = useState('');
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
