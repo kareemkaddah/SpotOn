@@ -1,9 +1,10 @@
 import './App.css';
+
 import { useState, useEffect } from 'react';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 import RecentPosts from './components/RecentPosts';
-import { Country, State, City } from 'country-state-city';
+import { City } from 'country-state-city';
 import darkMode from './assets/darkMode.svg';
 
 function App() {
@@ -108,20 +109,21 @@ function App() {
           </select>
         </div>
         <div>
-          <select
-            className='gender-box'
-            id='activity'
-            value={activity}
-            onChange={(e) => setActivity(e.target.value)}
-          >
-            <option value='' disabled>
-              Activity
-            </option>
-            <option value='Car'>Car</option>
-            <option value='Train'>Train</option>
-            <option value='Walking'>Walking</option>
-            <option value='Other'>Other</option>
-          </select>
+          <div className='activity-options'>
+            {['Car🚗', 'Train🚋', 'Walking🚶‍♀️', 'Airplane✈️', 'Other'].map(
+              (option) => (
+                <div
+                  key={option}
+                  className={`activity-box ${
+                    activity === option ? 'selected' : ''
+                  }`}
+                  onClick={() => setActivity(option)}
+                >
+                  {option}
+                </div>
+              )
+            )}
+          </div>
         </div>
         <textarea
           className='inputBox'

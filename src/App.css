@@ -138,3 +138,28 @@ body.dark-mode .gender-box {
     animation: logo-spin infinite 20s linear;
   }
 }
+.activity-options {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.activity-box {
+  border: 2px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.activity-box:hover {
+  background-color: #f0f0f0;
+}
+
+.activity-box.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
